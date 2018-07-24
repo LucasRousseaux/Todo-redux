@@ -5,7 +5,7 @@ const TodoList = ({todos, onToggle, onDestroy, setShowAll, setShowActive, setSho
   <div>
     <ul className="todo-list">
       {todos.map(todo =>
-        <TodoItem key={todo.id} title={todo.title} completed={todo.completed} show={todo.display} onToggle={() => onToggle(todo)} onDestroy={() => onDestroy(todo)}/>
+        <TodoItem key={todo.id} title={todo.title} completed={todo.completed} onToggle={() => onToggle(todo)} onDestroy={() => onDestroy(todo)}/>
       )}
     </ul>
       <button onClick={setShowAll} > All </button>

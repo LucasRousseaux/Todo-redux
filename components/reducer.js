@@ -1,4 +1,4 @@
-import {DRAFT_CHANGE,ADD_TODO,TOGGLE_TODO,DESTROY_TODO,SHOW_ALL,SHOW_ACTIVE,SHOW_COMPLETED} from './ActionType.js'
+import {DRAFT_CHANGE,ADD_TODO,TOGGLE_TODO,DESTROY_TODO,SHOW_ALL,SHOW_ACTIVE,SHOW_COMPLETED, SET_FILTER} from './ActionType.js'
 
 
 
@@ -35,17 +35,13 @@ const todosReducer = (state = [], action) => {
 }
 
 
-const filterReducer = (state = [], action) => {
+const filterReducer = (state = SHOW_ALL, action) => {
 
-  console.log('filterReducer:',state, action)
+  console.log('filterReducer:',state,'action:', action)
 
   switch (action.type) {
-    case SHOW_ALL:
-      return state
-    case SHOW_ACTIVE:
-      return state.map( (item) => !item.completed ? item.display = true : item.display= false)
-    case SHOW_COMPLETED:
-      return state.map( (item) => item.completed ? item.display = true : item.display= false)
+    case SET_FILTER:
+      return action.filter
     default:
       return state
   }

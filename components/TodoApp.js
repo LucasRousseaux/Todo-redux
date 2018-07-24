@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import NewTodo from './NewTodo'
 import TodoList from './TodoList'
-import {onDraftChange, onAddTodo, onToggleTodo, onDestroyTodo,setShowAll,setShowActive,setShowCompleted} from './Actions'
+import {onDraftChange, onAddTodo, onToggleTodo, onDestroyTodo,setShowAll,setShowActive,setShowCompleted,getVisibleTodos,getDraft,getTodos,getFilter} from './Actions'
 
-const TodoApp = ({ draft, todos, onDraftChange, onAddTodo,onToggleTodo, onDestroyTodo }) =>
+const TodoApp = ({ draft, todos, onDraftChange, onAddTodo,onToggleTodo, onDestroyTodo, setShowAll, setShowActive, setShowCompleted }) =>
     <div className="todoapp">
       <section className="header">
         <h1>todo</h1>
@@ -24,13 +24,13 @@ TodoApp.propTypes = {
   todos: PropTypes.array.isRequired
 }
 
-
 const mapStateToProps = state => ({
-  draft: state.draft,
-  todos: state.todos,
+  draft: getDraft(state),
+  todos: getVisibleTodos(
+    getTodos(state),
+    getFilter(state)),
+  filter: getFilter(state)
 })
-
-
 
 const mapDispatchToProps = dispatch => ({
   onDraftChange: value => dispatch(onDraftChange(value)),
