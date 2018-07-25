@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import NewTodo from './NewTodo'
 import TodoList from './TodoList'
-import {onDraftChange, onAddTodo, onToggleTodo, onDestroyTodo,setShowAll,setShowActive,setShowCompleted,getVisibleTodos,getDraft,getTodos,getFilter} from './Actions'
+import {onDraftChange, onAddTodo, onToggleTodo, onDestroyTodo,setFilter,getVisibleTodos,getDraft,getTodos,getFilter} from './Actions'
+import {SHOW_ALL, SHOW_ACTIVE,SHOW_COMPLETED} from './ActionType'
 
-const TodoApp = ({ draft, todos, onDraftChange, onAddTodo,onToggleTodo, onDestroyTodo, setShowAll, setShowActive, setShowCompleted }) =>
+
+const TodoApp = ({ draft, todos, onDraftChange, onAddTodo,onToggleTodo, onDestroyTodo, setFilter }) =>
     <div className="todoapp">
       <section className="header">
         <h1>todo</h1>
@@ -15,7 +17,10 @@ const TodoApp = ({ draft, todos, onDraftChange, onAddTodo,onToggleTodo, onDestro
           onAddTodo={onAddTodo}
         />
       </section>
-      <TodoList todos={todos} onToggle={onToggleTodo} onDestroy={onDestroyTodo} setShowAll={setShowAll} setShowActive={setShowActive} setShowCompleted={setShowCompleted}/>
+      <TodoList todos={todos} onToggle={onToggleTodo} onDestroy={onDestroyTodo} />
+      <button className="btn btn-outline-success my-2 my-sm-0" onClick={() => setFilter(SHOW_ALL)} > All </button>
+      <button className="btn btn-outline-success my-2 my-sm-0" onClick={() => setFilter(SHOW_ACTIVE)} > Active </button>
+      <button className="btn btn-outline-success my-2 my-sm-0" onClick={() => setFilter(SHOW_COMPLETED)} > Completed </button>
     </div>
 
 
@@ -37,9 +42,7 @@ const mapDispatchToProps = dispatch => ({
   onAddTodo: todo => dispatch(onAddTodo(todo)),
   onToggleTodo: todo => dispatch(onToggleTodo(todo)),
   onDestroyTodo:todo => dispatch(onDestroyTodo(todo)),
-  setShowAll: () => dispatch(setShowAll()),
-  SetShowActive: () => dispatch(setShowActive()),
-  SetShowCompleted: () => dispatch(setShowCompleted()),
+  setFilter: filter => dispatch(setFilter(filter)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)

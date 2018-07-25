@@ -32,6 +32,13 @@ export function onDestroyTodo (todo) {
 
 }
 
+export function setFilter(filter) {
+  return {
+    type: SET_FILTER,
+    filter
+  }
+
+}
 export function setShowAll() {
   return {
     type: SET_FILTER,
